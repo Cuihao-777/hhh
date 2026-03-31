@@ -1,0 +1,4 @@
+Invoking command in '/home/cui/Desktop/arm_ws/build/robotic_arm': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/cui/Desktop/arm_ws/build/robotic_arm -- -j32 -l32
+Invoked command in '/home/cui/Desktop/arm_ws/build/robotic_arm' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/cui/Desktop/arm_ws/build/robotic_arm -- -j32 -l32
+Invoking command in '/home/cui/Desktop/arm_ws/build/robotic_arm': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/cui/Desktop/arm_ws/build/robotic_arm
+Invoked command in '/home/cui/Desktop/arm_ws/build/robotic_arm' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/cui/Desktop/arm_ws/build/robotic_arm

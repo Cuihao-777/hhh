@@ -1,0 +1,31 @@
+// generated from rosidl_adapter/resource/action.idl.em
+// with input from robot_interfaces/action/Catch.action
+// generated code does not contain a copyright notice
+
+#include "geometry_msgs/msg/Pose.idl"
+
+module robot_interfaces {
+  module action {
+    @verbatim (language="comment", text=
+      "Goal - 抓取目标")
+    struct Catch_Goal {
+      geometry_msgs::msg::Pose target_pose;
+
+      int32 action_type;
+    };
+    @verbatim (language="comment", text=
+      "Result - 执行结果")
+    struct Catch_Result {
+      boolean success;
+
+      string reason;
+    };
+    @verbatim (language="comment", text=
+      "Feedback - 实时反馈")
+    struct Catch_Feedback {
+      string current_state;
+
+      float progress_percentage;
+    };
+  };
+};

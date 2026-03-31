@@ -1,0 +1,10 @@
+/home/cui/Desktop/arm_ws/build/pnp_ros/CMakeFiles/uninstall.dir
+/home/cui/Desktop/arm_ws/build/pnp_ros/CMakeFiles/pnp_ros_uninstall.dir
+/home/cui/Desktop/arm_ws/build/pnp_ros/CMakeFiles/pnp_ros_node.dir
+/home/cui/Desktop/arm_ws/build/pnp_ros/CMakeFiles/test.dir
+/home/cui/Desktop/arm_ws/build/pnp_ros/CMakeFiles/edit_cache.dir
+/home/cui/Desktop/arm_ws/build/pnp_ros/CMakeFiles/rebuild_cache.dir
+/home/cui/Desktop/arm_ws/build/pnp_ros/CMakeFiles/list_install_components.dir
+/home/cui/Desktop/arm_ws/build/pnp_ros/CMakeFiles/install.dir
+/home/cui/Desktop/arm_ws/build/pnp_ros/CMakeFiles/install/local.dir
+/home/cui/Desktop/arm_ws/build/pnp_ros/CMakeFiles/install/strip.dir

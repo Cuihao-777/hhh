@@ -1,0 +1,1 @@
+rclcpp;rclcpp_action;geometry_msgs;sensor_msgs;cv_bridge;tf2;tf2_ros;tf2_geometry_msgs;robot_interfaces;robotic_arm;launch;launch_ros;robot_state_publisher;ament_lint_auto;ament_lint_common

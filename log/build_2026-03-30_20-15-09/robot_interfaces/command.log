@@ -1,0 +1,6 @@
+Invoking command in '/home/cui/Desktop/arm_ws/build/robot_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/cui/Desktop/arm_ws/src/robot_interfaces -DCMAKE_INSTALL_PREFIX=/home/cui/Desktop/arm_ws/install/robot_interfaces
+Invoked command in '/home/cui/Desktop/arm_ws/build/robot_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/cui/Desktop/arm_ws/src/robot_interfaces -DCMAKE_INSTALL_PREFIX=/home/cui/Desktop/arm_ws/install/robot_interfaces
+Invoking command in '/home/cui/Desktop/arm_ws/build/robot_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/cui/Desktop/arm_ws/build/robot_interfaces -- -j32 -l32
+Invoked command in '/home/cui/Desktop/arm_ws/build/robot_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/cui/Desktop/arm_ws/build/robot_interfaces -- -j32 -l32
+Invoking command in '/home/cui/Desktop/arm_ws/build/robot_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/cui/Desktop/arm_ws/build/robot_interfaces
+Invoked command in '/home/cui/Desktop/arm_ws/build/robot_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/cui/Desktop/arm_ws/build/robot_interfaces

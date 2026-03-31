@@ -1,0 +1,17 @@
+/home/cui/Desktop/arm_ws/install/pnp_ros/lib/pnp_ros/pnp_ros_node
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/launch/pnp_system.launch.py
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/ament_index/resource_index/package_run_dependencies/pnp_ros
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/ament_index/resource_index/parent_prefix_path/pnp_ros
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/environment/ament_prefix_path.sh
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/environment/ament_prefix_path.dsv
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/environment/path.sh
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/environment/path.dsv
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/local_setup.bash
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/local_setup.sh
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/local_setup.zsh
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/local_setup.dsv
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/package.dsv
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/ament_index/resource_index/packages/pnp_ros
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/cmake/pnp_rosConfig.cmake
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/cmake/pnp_rosConfig-version.cmake
+/home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/package.xml

@@ -1,0 +1,27 @@
+[0.011s] Invoking command in '/home/cui/Desktop/arm_ws/build/pnp_ros': CMAKE_PREFIX_PATH=/home/cui/Desktop/arm_ws/install/robotic_arm:/home/cui/Desktop/arm_ws/install/robot_interfaces:/home/cui/Desktop/arm_ws/install/pnp_ros:/opt/ros/humble LD_LIBRARY_PATH=/home/cui/Desktop/arm_ws/install/robot_interfaces/lib:/usr/local/cuda-13.0/lib64:/usr/local/cuda-13.0/lib64:/usr/local/cuda-13.0/lib64:/opt/intel/l_openvino_toolkit_ubuntu20_2024.6.0.17404.4c0f47d2335_x86_64/runtime/3rdparty/tbb/lib:/opt/intel/l_openvino_toolkit_ubuntu20_2024.6.0.17404.4c0f47d2335_x86_64/runtime/lib/intel64:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/opt/MVS/lib/64:/opt/MVS/lib/32 /usr/bin/cmake --build /home/cui/Desktop/arm_ws/build/pnp_ros -- -j32 -l32
+[0.071s] [ 50%] [32mBuilding CXX object CMakeFiles/pnp_ros_node.dir/src/pnp_ros.cpp.o[0m
+[5.494s] [100%] [32m[1mLinking CXX executable pnp_ros_node[0m
+[5.885s] [100%] Built target pnp_ros_node
+[5.898s] Invoked command in '/home/cui/Desktop/arm_ws/build/pnp_ros' returned '0': CMAKE_PREFIX_PATH=/home/cui/Desktop/arm_ws/install/robotic_arm:/home/cui/Desktop/arm_ws/install/robot_interfaces:/home/cui/Desktop/arm_ws/install/pnp_ros:/opt/ros/humble LD_LIBRARY_PATH=/home/cui/Desktop/arm_ws/install/robot_interfaces/lib:/usr/local/cuda-13.0/lib64:/usr/local/cuda-13.0/lib64:/usr/local/cuda-13.0/lib64:/opt/intel/l_openvino_toolkit_ubuntu20_2024.6.0.17404.4c0f47d2335_x86_64/runtime/3rdparty/tbb/lib:/opt/intel/l_openvino_toolkit_ubuntu20_2024.6.0.17404.4c0f47d2335_x86_64/runtime/lib/intel64:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/opt/MVS/lib/64:/opt/MVS/lib/32 /usr/bin/cmake --build /home/cui/Desktop/arm_ws/build/pnp_ros -- -j32 -l32
+[5.899s] Invoking command in '/home/cui/Desktop/arm_ws/build/pnp_ros': CMAKE_PREFIX_PATH=/home/cui/Desktop/arm_ws/install/robotic_arm:/home/cui/Desktop/arm_ws/install/robot_interfaces:/home/cui/Desktop/arm_ws/install/pnp_ros:/opt/ros/humble LD_LIBRARY_PATH=/home/cui/Desktop/arm_ws/install/robot_interfaces/lib:/usr/local/cuda-13.0/lib64:/usr/local/cuda-13.0/lib64:/usr/local/cuda-13.0/lib64:/opt/intel/l_openvino_toolkit_ubuntu20_2024.6.0.17404.4c0f47d2335_x86_64/runtime/3rdparty/tbb/lib:/opt/intel/l_openvino_toolkit_ubuntu20_2024.6.0.17404.4c0f47d2335_x86_64/runtime/lib/intel64:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/opt/MVS/lib/64:/opt/MVS/lib/32 /usr/bin/cmake --install /home/cui/Desktop/arm_ws/build/pnp_ros
+[5.906s] -- Install configuration: ""
+[5.906s] -- Installing: /home/cui/Desktop/arm_ws/install/pnp_ros/lib/pnp_ros/pnp_ros_node
+[5.908s] -- Set runtime path of "/home/cui/Desktop/arm_ws/install/pnp_ros/lib/pnp_ros/pnp_ros_node" to ""
+[5.909s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/launch
+[5.909s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/launch/pnp_system.launch.py
+[5.909s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/ament_index/resource_index/package_run_dependencies/pnp_ros
+[5.909s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/ament_index/resource_index/parent_prefix_path/pnp_ros
+[5.909s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/environment/ament_prefix_path.sh
+[5.909s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/environment/ament_prefix_path.dsv
+[5.909s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/environment/path.sh
+[5.909s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/environment/path.dsv
+[5.909s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/local_setup.bash
+[5.909s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/local_setup.sh
+[5.909s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/local_setup.zsh
+[5.909s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/local_setup.dsv
+[5.909s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/package.dsv
+[5.910s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/ament_index/resource_index/packages/pnp_ros
+[5.910s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/cmake/pnp_rosConfig.cmake
+[5.910s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/cmake/pnp_rosConfig-version.cmake
+[5.910s] -- Up-to-date: /home/cui/Desktop/arm_ws/install/pnp_ros/share/pnp_ros/package.xml
+[5.911s] Invoked command in '/home/cui/Desktop/arm_ws/build/pnp_ros' returned '0': CMAKE_PREFIX_PATH=/home/cui/Desktop/arm_ws/install/robotic_arm:/home/cui/Desktop/arm_ws/install/robot_interfaces:/home/cui/Desktop/arm_ws/install/pnp_ros:/opt/ros/humble LD_LIBRARY_PATH=/home/cui/Desktop/arm_ws/install/robot_interfaces/lib:/usr/local/cuda-13.0/lib64:/usr/local/cuda-13.0/lib64:/usr/local/cuda-13.0/lib64:/opt/intel/l_openvino_toolkit_ubuntu20_2024.6.0.17404.4c0f47d2335_x86_64/runtime/3rdparty/tbb/lib:/opt/intel/l_openvino_toolkit_ubuntu20_2024.6.0.17404.4c0f47d2335_x86_64/runtime/lib/intel64:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/opt/MVS/lib/64:/opt/MVS/lib/32 /usr/bin/cmake --install /home/cui/Desktop/arm_ws/build/pnp_ros

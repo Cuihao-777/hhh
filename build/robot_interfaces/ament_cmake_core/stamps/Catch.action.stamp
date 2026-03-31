@@ -1,0 +1,11 @@
+# Goal - 抓取目标
+geometry_msgs/Pose target_pose
+int32 action_type
+---
+# Result - 执行结果
+bool success
+string reason
+---
+# Feedback - 实时反馈
+string current_state
+float32 progress_percentage
