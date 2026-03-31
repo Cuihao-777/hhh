@@ -10,7 +10,7 @@
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include "robot_interfaces/action/catch.hpp"
 #include <opencv2/opencv.hpp>
-#include <librealsense2/rs.hpp>  // ⭐ 新增
+#include <librealsense2/rs.hpp>  // ⭐ 添加 RealSense
 #include <vector>
 #include <array>
 #include <deque>
@@ -33,8 +33,6 @@ static const vector<Point3f> OBJ_PTS = {
     { HALF,  HALF, 0},  // 2 右下
     {-HALF,  HALF, 0}   // 3 左下
 };
-
-// ⭐ 移除静态 K 和 D，改为从 RealSense 动态获取
 
 // ================================================================
 //  卡尔曼滤波器封装
@@ -78,6 +76,21 @@ struct CornerKF {
 // ================================================================
 //  工具函数
 // ================================================================
+// ⭐ 从 RealSense 内参获取相机矩阵
+Mat getK(const rs2_intrinsics& intr) {
+    return (Mat_<double>(3,3) <<
+        intr.fx, 0,       intr.ppx,
+        0,       intr.fy, intr.ppy,
+        0,       0,       1);
+}
+
+Mat getD(const rs2_intrinsics& intr) {
+    Mat D = Mat::zeros(1, 5, CV_64F);
+    for (int i = 0; i < 5; i++)
+        D.at<double>(0, i) = intr.coeffs[i];
+    return D;
+}
+
 vector<Point2f> sortCorners(const vector<Point2f>& in) {
     vector<Point2f> r(4);
     vector<float> s(4), d(4);
@@ -117,25 +130,11 @@ void putLabel(Mat& img, const string& text, Point org,
     putText(img, text, org, FONT_HERSHEY_SIMPLEX, scale, color, thick);
 }
 
-// ⭐ 新增：从 RealSense 内参获取相机矩阵
-Mat getK(const rs2_intrinsics& intr) {
-    return (Mat_<double>(3,3) <<
-        intr.fx, 0,       intr.ppx,
-        0,       intr.fy, intr.ppy,
-        0,       0,       1);
-}
-
-Mat getD(const rs2_intrinsics& intr) {
-    Mat D = Mat::zeros(1, 5, CV_64F);
-    for (int i = 0; i < 5; i++)
-        D.at<double>(0, i) = intr.coeffs[i];
-    return D;
-}
-
 // ================================================================
 //  核心：从彩色帧里提取箱子四角
 // ================================================================
-bool detectBoxCorners(const Mat& frame, vector<Point2f>& corners, Mat& debugMask) {
+bool detectBoxCorners(const Mat& frame, const Mat& prevGray,
+                      vector<Point2f>& corners, Mat& debugMask) {
     Mat hsv;
     cvtColor(frame, hsv, COLOR_BGR2HSV);
     
@@ -204,7 +203,7 @@ bool detectBoxCorners(const Mat& frame, vector<Point2f>& corners, Mat& debugMask
 }
 
 // ================================================================
-//  距离 / 位姿平滑
+//  位姿平滑
 // ================================================================
 struct PoseSmootherVec3 {
     deque<Vec3d> buf;
@@ -223,7 +222,7 @@ struct PoseSmootherVec3 {
 };
 
 // ================================================================
-//  ROS 2 节点
+//  ROS 2 节点 - RealSense 版本
 // ================================================================
 class BoxPnPNode : public rclcpp::Node {
 public:
@@ -231,7 +230,7 @@ public:
     using GoalHandleCatch = rclcpp_action::ClientGoalHandle<Catch>;
     
     BoxPnPNode() : Node("box_pnp_node") {
-        RCLCPP_INFO(this->get_logger(), "BoxPnPNode 启动");
+        RCLCPP_INFO(this->get_logger(), "BoxPnPNode 启动 (RealSense)");
         
         tf_buffer_ = std::make_shared<tf2_ros::Buffer>(this->get_clock());
         tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
@@ -239,7 +238,7 @@ public:
         action_client_ = rclcpp_action::create_client<Catch>(this, "robotic_task_");
         pose_pub_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("box_pose", 10);
         
-        // ⭐ 启动 RealSense 替代 USB 摄像头
+        // ⭐ 启动 RealSense
         RCLCPP_INFO(this->get_logger(), "正在启动 RealSense 相机...");
         try {
             rs2::config cfg;
@@ -248,7 +247,6 @@ public:
             
             rs2::pipeline_profile prof = pipe_.start(cfg);
             
-            // ⭐ 从 RealSense 获取相机内参
             auto color_stream = prof.get_stream(RS2_STREAM_COLOR).as<rs2::video_stream_profile>();
             rs2_intrinsics intr = color_stream.get_intrinsics();
             
@@ -274,7 +272,7 @@ public:
     }
     
     ~BoxPnPNode() {
-        pipe_.stop();  // ⭐ 停止 RealSense
+        pipe_.stop();
         cv::destroyAllWindows();
     }
 
@@ -295,13 +293,13 @@ private:
         Mat frame(Size(cf.get_width(), cf.get_height()),
                   CV_8UC3, (void*)cf.get_data(), Mat::AUTO_STEP);
         
-        Mat show = frame.clone();  // ⭐ 直接使用，不需要去畸变
+        Mat show = frame.clone();
         Mat debugMask;
         vector<Point2f> rawCorners;
         
-        bool detected = detectBoxCorners(frame, rawCorners, debugMask);
+        bool detected = detectBoxCorners(frame, prevGray_, rawCorners, debugMask);
         
-        // ----- 卡尔曼平滑角点 -----
+        // 卡尔曼平滑角点
         vector<Point2f> smoothCorners(4);
         if (detected) {
             for (int i = 0; i < 4; i++)
@@ -318,7 +316,7 @@ private:
         bool anyInited = kfs_[0].initialized;
         
         if (anyInited) {
-            // ----- 画角点框 -----
+            // 画角点框
             for (int i = 0; i < 4; i++) {
                 Point2f a = smoothCorners[i];
                 Point2f b = smoothCorners[(i+1)%4];
@@ -327,9 +325,9 @@ private:
                 putLabel(show, to_string(i), a + Point2f(8, -8), 0.65, Scalar(255, 255, 0));
             }
             
-            // ----- solvePnP -----
+            // solvePnP
             Mat rvec, tvec;
-            bool pnp_ok = solvePnP(OBJ_PTS, smoothCorners, K_, D_,  // ⭐ 使用动态 K_ 和 D_
+            bool pnp_ok = solvePnP(OBJ_PTS, smoothCorners, K_, D_,
                                    rvec, tvec, false, SOLVEPNP_ITERATIVE);
             
             if (pnp_ok) {
@@ -347,6 +345,7 @@ private:
                 
                 Mat tvecSmoothed = (Mat_<double>(3,1) << X, Y, Z);
                 
+                // 绘制坐标轴
                 vector<Point3f> axisPts = {{0,0,0}, {100,0,0}, {0,100,0}, {0,0,100}};
                 vector<Point2f> axisImg;
                 projectPoints(axisPts, rvec, tvecSmoothed, K_, D_, axisImg);
@@ -359,6 +358,7 @@ private:
                 putLabel(show, "Y", axisImg[2] + Point2f(5, 0), 0.6, Scalar(0,255,0));
                 putLabel(show, "Z", axisImg[3] + Point2f(5, 0), 0.6, Scalar(255,100,0));
                 
+                // 绘制中心点
                 vector<Point2f> centerImg;
                 projectPoints(vector<Point3f>{{0,0,0}}, rvec, tvecSmoothed, K_, D_, centerImg);
                 if (!centerImg.empty()) {
@@ -369,6 +369,7 @@ private:
                     circle(show, centerImg[0], 5, Scalar(0,255,255), -1, LINE_AA);
                 }
                 
+                // 信息面板
                 {
                     Mat overlay = show.clone();
                     rectangle(overlay, Point(10, 10), Point(500, 185), Scalar(0,0,0), FILLED);
@@ -402,7 +403,7 @@ private:
                     fflush(stdout);
                 }
                 
-                // ⭐ 构造 camera_link 坐标系下的位姿
+                // 构造并发布位姿
                 geometry_msgs::msg::PoseStamped pose_camera;
                 pose_camera.header.stamp = this->now();
                 pose_camera.header.frame_id = "camera_link";
@@ -423,7 +424,7 @@ private:
                 pose_camera.pose.orientation.z = q.z();
                 pose_camera.pose.orientation.w = q.w();
                 
-                // ⭐ 尝试TF转换到 base_link
+                // TF 转换到 base_link
                 try {
                     geometry_msgs::msg::PoseStamped pose_base = 
                         tf_buffer_->transform(pose_camera, "base_link", tf2::durationFromSec(0.1));
@@ -444,7 +445,7 @@ private:
             }
         }
         
-        // ⭐ 如果当前没检测到，但之前有有效位姿，就发布上一次的
+        // 发布上一次有效位姿
         if (!anyInited || !detected) {
             if (has_valid_pose_) {
                 last_valid_pose_.header.stamp = this->now();
@@ -452,7 +453,10 @@ private:
             }
         }
         
-        // ---- 显示 mask 在右下角 ----
+        // 更新 prevGray
+        cvtColor(frame, prevGray_, COLOR_BGR2GRAY);
+        
+        // 显示 mask
         {
             Mat maskBGR, maskSmall;
             cvtColor(debugMask, maskBGR, COLOR_GRAY2BGR);
@@ -464,7 +468,7 @@ private:
             putLabel(show, "RedMask", Point(ox+5, oy+18), 0.55, Scalar(200,200,200));
         }
         
-        imshow("Box PnP", show);
+        imshow("Box PnP - RealSense", show);
         waitKey(1);
     }
     
@@ -491,9 +495,10 @@ private:
         RCLCPP_INFO(this->get_logger(), "抓取任务完成: %s", result.result->reason.c_str());
     }
     
-    // ⭐ 成员变量：用 RealSense pipeline 替代 VideoCapture
-    rs2::pipeline pipe_;
-    Mat K_, D_;  // ⭐ 动态获取，不再是静态常量
+    // 成员变量
+    rs2::pipeline pipe_;  // ⭐ RealSense pipeline
+    Mat K_, D_;           // ⭐ 动态相机参数
+    Mat prevGray_;        // ⭐ 上一帧灰度图
     
     array<CornerKF, 4> kfs_;
     PoseSmootherVec3 tvecSmoother_{SMOOTH_N};
@@ -506,8 +511,8 @@ private:
     std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
     
     bool goal_sent_ = false;
-    geometry_msgs::msg::PoseStamped last_valid_pose_;
     bool has_valid_pose_ = false;
+    geometry_msgs::msg::PoseStamped last_valid_pose_;
 };
 
 int main(int argc, char **argv) {
